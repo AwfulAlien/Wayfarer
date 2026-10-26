@@ -19,7 +19,7 @@ Use these build settings for the Pages project `wayfarer`:
 
 Do not run `npx wrangler deploy` for this Pages project. If Cloudflare's selected build interface requires a custom deploy command, use `npm run deploy:cloudflare` instead; it runs `npx wrangler pages deploy dist/date-time/browser --project-name wayfarer`.
 
-Set the Cloudflare build variable `FRONTEND_API_BASE_URL` to the public Spring Boot backend origin. It is public browser configuration, not a secret. Keep `GEMINI_API_KEY` only in the backend environment.
+Production builds default to the deployed Spring Boot origin `https://wayfarer-api-p4by.onrender.com`; set `FRONTEND_API_BASE_URL` in Cloudflare to override it when the backend URL changes. This is public browser configuration, not a secret. Local `npm start` keeps the API base empty and continues using `proxy.conf.json` to reach `http://localhost:8080`. Keep `GEMINI_API_KEY` only in the backend environment.
 
 Cloudflare Pages serves `index.html` for unmatched paths when the output has no top-level `404.html`, which is the SPA fallback Angular needs for client-side routes. The current build has no `404.html`. If one is added later, preserve the SPA fallback intentionally.
 

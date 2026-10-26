@@ -1,6 +1,9 @@
 import { writeFile } from 'node:fs/promises';
 
-const configuredBaseUrl = (process.env.FRONTEND_API_BASE_URL ?? '').trim().replace(/\/+$/, '');
+const localMode = process.argv.includes('--local');
+const productionApiBaseUrl = 'https://wayfarer-api-p4by.onrender.com';
+const environmentApiBaseUrl = process.env.FRONTEND_API_BASE_URL?.trim();
+const configuredBaseUrl = (environmentApiBaseUrl || (localMode ? '' : productionApiBaseUrl)).replace(/\/+$/, '');
 if (configuredBaseUrl) {
   let parsedUrl;
   try {
