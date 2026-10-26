@@ -8,8 +8,8 @@ if (configuredBaseUrl) {
   } catch {
     throw new Error('FRONTEND_API_BASE_URL must be an absolute HTTP(S) origin.');
   }
-  if (!['http:', 'https:'].includes(parsedUrl.protocol) || parsedUrl.username || parsedUrl.password || parsedUrl.search || parsedUrl.hash) {
-    throw new Error('FRONTEND_API_BASE_URL must be an HTTP(S) origin without credentials, query, or fragment.');
+  if (!['http:', 'https:'].includes(parsedUrl.protocol) || parsedUrl.pathname !== '/' || parsedUrl.username || parsedUrl.password || parsedUrl.search || parsedUrl.hash) {
+    throw new Error('FRONTEND_API_BASE_URL must be an HTTP(S) origin without a path, credentials, query, or fragment.');
   }
 }
 

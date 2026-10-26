@@ -3,6 +3,12 @@
 # Compiled output
 /dist
 /public/app-config.js
+/secrets/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
 /tmp
 /out-tsc
 /bazel-out

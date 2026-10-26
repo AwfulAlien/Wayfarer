@@ -39,6 +39,12 @@ describe('LandingComponent travel flow', () => {
     const history = fixture.nativeElement.querySelector('.chat-body') as HTMLElement;
     Object.defineProperty(history, 'clientHeight', { configurable: true, value: 300 });
     Object.defineProperty(history, 'scrollHeight', { configurable: true, get: () => 500 + component.messages.length * 120 });
+    let simulatedScrollTop = 0;
+    Object.defineProperty(history, 'scrollTop', {
+      configurable: true,
+      get: () => simulatedScrollTop,
+      set: (value: number) => { simulatedScrollTop = Math.max(0, Math.min(value, history.scrollHeight - history.clientHeight)); },
+    });
 
     component.send('Plan a long weekend trip');
     fixture.detectChanges();
