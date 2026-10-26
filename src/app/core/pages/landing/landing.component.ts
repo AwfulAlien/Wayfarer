@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AfterViewChecked, Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
+import { apiUrl } from '../../api-url';
 
 type TravelDetails = {
   destination: string | null; durationDays: number | null; startDate: string | null; endDate: string | null; dateNotes: string | null;
@@ -68,7 +69,7 @@ export class LandingComponent implements AfterViewChecked {
   readonly prompts = ['Plan a weekend getaway', 'Help me plan a family holiday', 'I want an adventure trip'];
 
   constructor() {
-    this.http.get<{ guideName: string; guideWhatsapp: string; guideEmail: string; consultationPrice: number; consultationCurrency: string }>('/api/public-config')
+    this.http.get<{ guideName: string; guideWhatsapp: string; guideEmail: string; consultationPrice: number; consultationCurrency: string }>(apiUrl('/api/public-config'))
       .subscribe({ next: config => { this.guideName = config.guideName || this.guideName; this.guidePhone = config.guideWhatsapp || ''; this.guideEmail = config.guideEmail || ''; this.consultationPrice = config.consultationPrice ?? 9.99; this.consultationCurrency = config.consultationCurrency || 'EUR'; }, error: () => undefined });
   }
 
@@ -95,7 +96,7 @@ export class LandingComponent implements AfterViewChecked {
     if (!message || this.loading || message.length > 2000) return;
     this.messages.push({ role: 'user', text: message }); this.scrollChatToLatest(true); this.messageControl.setValue(''); this.error = ''; this.loading = true;
     const { adults, children, ...trip } = this.details;
-    this.http.post<{ reply: string; travelDetails: TravelDetails }>('/api/chat', {
+    this.http.post<{ reply: string; travelDetails: TravelDetails }>(apiUrl('/api/chat'), {
       conversationId: 'demo-' + (sessionStorage.getItem('travel-demo-id') ?? this.newId()), message,
       travelDetails: { ...trip, travellers: { adults, children } },
       history: this.messages.slice(0, -1).slice(-12),
