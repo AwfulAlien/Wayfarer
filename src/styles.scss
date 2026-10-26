@@ -1,4 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; }
-body { margin: 0; padding: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background:#fbfaf7; }
+body { margin:0; min-height:100%; font-family:'DM Sans','Segoe UI',sans-serif; color:#1e302d; -webkit-font-smoothing:antialiased; }
+button,input,textarea { font:inherit; }
+:focus-visible { outline:2px solid #739481; outline-offset:3px; }
+::selection { background:#d9e4dc; color:#1e302d; }

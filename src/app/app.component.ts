@@ -10,5 +10,5 @@ import { SHARED_IMPORTS } from './shared/shared-imports';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'DateTime';
+  title = 'Wayfarer';
 }
